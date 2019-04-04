@@ -1,10 +1,32 @@
 <div class="container-fluid">
-  <div class="jumbotron text-center">
-    <h1>
-      <img class="logo" src="assets/ngx-rocket-logo.png" alt="angular logo"/>
-      <span translate>Hello world</span>
-    </h1>
-    <app-loader [isLoading]="isLoading"></app-loader>
-    <q [hidden]="isLoading">{{quote}}</q>
+  <app-loader [isLoading]="isLoading"></app-loader>
+
+
+  <div [hidden]="isLoading" class="container">
+    <h3 class="page-header border-bottom mt-3 mb-5">
+      <i class="fa fa-video"></i> {{ 'Movies' | translate }}
+    </h3>
+
+    <div class="row">
+      <div class="col-3" *ngFor="let movie of movies">
+        <div class="card text-center">
+          <img class="card-img-top" src="/assets/bg.png" alt="Card image">
+          <div class="card-body">
+            <h5 class="card-title">{{ movie.attributes?.name }}</h5>
+          </div>
+
+          <div class="card-header" translate="">Artists</div>
+          <div class="card-header" translate="">Genres</div>
+
+          <div class="card-footer">
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-primary" translate>Update</button>
+              <button type="button" class="btn btn-danger" translate>Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

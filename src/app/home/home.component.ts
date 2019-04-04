@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {finalize} from 'rxjs/operators';
 
-import {QuoteService} from './quote.service';
+import {MovieService} from './movie.service';
 
 @Component({
   selector: 'app-home',
@@ -10,21 +10,21 @@ import {QuoteService} from './quote.service';
 })
 export class HomeComponent implements OnInit {
 
-  quote: string;
+  movies: any[];
   isLoading: boolean;
 
-  constructor(private quoteService: QuoteService) {
+  constructor(private movieService: MovieService) {
   }
 
   ngOnInit() {
     this.isLoading = true;
-    this.quoteService.getRandomQuote({category: 'dev'})
-      .pipe(finalize(() => {
-        this.isLoading = false;
-      }))
-      .subscribe((quote: string) => {
-        this.quote = quote;
-      });
+
+    this.movieService.get().pipe(finalize(() => {
+      this.isLoading = false;
+    })).subscribe((movies: any) => {
+      this.movies = movies;
+      console.log(movies);
+    });
   }
 
 }
