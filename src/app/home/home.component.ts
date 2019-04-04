@@ -31,14 +31,18 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.isLoading = true;
 
+    this.refresh();
+
+    this.artistService.get().subscribe((artists: any) => {
+      this.people = artists;
+    });
+  }
+
+  refresh() {
     this.movieService.get().pipe(finalize(() => {
       this.isLoading = false;
     })).subscribe((movies: any) => {
       this.movies = movies;
-    });
-
-    this.artistService.get().subscribe((artists: any) => {
-      this.people = artists;
     });
   }
 
@@ -52,6 +56,12 @@ export class HomeComponent implements OnInit {
       (reason) => {
         console.log(reason);
       });
+  }
+
+  delete(id: number) {
+    this.movieService.delete(id).subscribe(() => {
+      this.refresh();
+    });
   }
 
   addArtist(name: string) {

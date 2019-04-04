@@ -20,4 +20,10 @@ export class MovieService {
     );
   }
 
+  delete(id: number): Observable<string> {
+    return this.httpClient.delete(routes.movies() + '/' + id).pipe(
+      catchError(() => of('Error, could not load movie:-('))
+    );
+  }
+
 }
